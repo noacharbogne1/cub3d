@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/20 03:24:05 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 07:20:26 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,26 @@ static char	**copy_file(char *filename)
 	return (file);
 }
 
+static bool	extract_identifiers(char **file, t_data *data, int *i, int *is_id)
+{
+	while (file[*i] && *is_id < 7)
+	{
+		if (file[*i][0] == '\0')
+		{
+			(*i)++;
+			continue ;
+		}
+		if (!check_identifier(file[*i], data))
+		{
+			printf("Error\nIdentifier false\n");
+			return (false);
+		}
+		(*is_id)++;
+		(*i)++;
+	}
+	return (true);
+}
+
 static bool	extract_file(char *filename, t_data *data)
 {
 	char	**file;
@@ -96,38 +116,30 @@ static bool	extract_file(char *filename, t_data *data)
 	file = copy_file(filename);
 	if (!file)
 		return (false);
-	while (1)
+	if (!extract_identifiers(file, data, &i, &is_id))
 	{
-		if (is_id < 7)
-		{
-			if (file[i][0] == '\0')
-				;
-			else if (!check_identifier(file[i], data))
-			{
-				printf("Error\nIdentifier false\n");
-				return (false);
-			}
-			is_id++;
-		}
-		else
-		{
-			if (file[i][0] != '\0')
-			{
-				printf("Error\nNo newline before map\n");
-				return (false);
-			}
-			i++;
-			break ;
-		}
-		i++;
+		ft_freetab(file);
+		return (false);
 	}
+	if (file[i][0] != '\0')
+	{
+		printf("Error\nNo newline before map\n");
+		ft_freetab(file);
+		return (false);
+	}
+	i++;
 	if (!pars_identifier(data))
 	{
 		printf("Error\nIdentifier input false\n");
+		ft_freetab(file);
 		return (false);
 	}
 	if (!check_map(file + i, data))
+	{
+		ft_freetab(file);
 		return (false);
+	}
+	ft_freetab(file);
 	return (true);
 }
 

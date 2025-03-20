@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 04:10:55 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 06:37:31 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ bool	pars_identifier(t_data *data)
 	f_colors = ft_split(data->f_color, ',');
 	c_colors = ft_split(data->c_color, ',');
 	if (ft_strlentab(f_colors) != 3 || ft_strlentab(c_colors) != 3)
-		return (false);
+		return (ft_freetab(f_colors) && ft_freetab(c_colors));
 	while (f_colors[i] && c_colors[i])
 	{
 		if (!is_all_digit(f_colors[i]) || !is_all_digit(c_colors[i]))
-			return (false);
+			return (ft_freetab(f_colors) && ft_freetab(c_colors));
 		if (ft_atoi(f_colors[i]) < 0 || ft_atoi(f_colors[i]) > 255
 			|| ft_atoi(c_colors[i]) < 0 || ft_atoi(c_colors[i]) > 255)
-			return (false);
+			return (ft_freetab(f_colors) && ft_freetab(c_colors));
 		i++;
 	}
 	// condition pour le check des textures, a activer quand on aura des fichiers textures
