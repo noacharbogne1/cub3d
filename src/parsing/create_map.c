@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:29:47 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 03:24:10 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:23:26 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ bool	check_map(char **file, t_data *data)
 	k = 0;
 	while (data->map[k])
 		printf("%s\n", data->map[k++]);
-	printf("-----------------\n");
 	newmap = ft_clone(data->map);
 	if (!newmap)
 		return (false);
@@ -126,7 +125,9 @@ bool	check_map(char **file, t_data *data)
 		ft_freetab(newmap);
 		return (false);
 	}
+	printf("-----------------\n");
 	printf("MAP\n");
+	printf("-----------------\n");
 	k = 0;
 	while (newmap[k])
 		printf("%s\n", newmap[k++]);

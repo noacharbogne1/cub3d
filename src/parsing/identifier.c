@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 06:37:31 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:21:41 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	check_identifier_path(t_data *data)
 	fd = open(data->w_txr, O_RDONLY);
 	if (fd < 0)
 		return (false);
-	close (fd);
+	close(fd);
 	return (true);
 }
 
@@ -69,7 +69,8 @@ bool	pars_identifier(t_data *data)
 			return (ft_freetab(f_colors) && ft_freetab(c_colors));
 		i++;
 	}
-	// condition pour le check des textures, a activer quand on aura des fichiers textures
+	// condition pour le check des textures,
+		//a activer quand on aura des fichiers textures
 	if (!check_identifier_path(data))
 		;
 	return (true);
@@ -142,11 +143,14 @@ bool	check_identifier(char *buf, t_data *data)
 		i++;
 	if (!buf[i] || buf[i] == '\n')
 		return (false);
+	printf("Here1\n");
 	while (buf[i + len] && !is_space(buf[i + len]))
 		len++;
 	id = compare_identifier(buf + i, len);
+	printf("id: %d\n", id);
 	if (!id)
 		return (false);
+	printf("Here2\n");
 	i += len;
 	while (buf[i] && is_space(buf[i]))
 		i++;
