@@ -6,7 +6,7 @@
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
-/*   Updated: 2025/03/20 13:21:41 by inowak--         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:26:30 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,14 +143,11 @@ bool	check_identifier(char *buf, t_data *data)
 		i++;
 	if (!buf[i] || buf[i] == '\n')
 		return (false);
-	printf("Here1\n");
 	while (buf[i + len] && !is_space(buf[i + len]))
 		len++;
 	id = compare_identifier(buf + i, len);
-	printf("id: %d\n", id);
 	if (!id)
 		return (false);
-	printf("Here2\n");
 	i += len;
 	while (buf[i] && is_space(buf[i]))
 		i++;
