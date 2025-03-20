@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strlentab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 16:39:09 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/20 03:22:01 by inowak--         ###   ########.fr       */
+/*   Created: 2025/03/20 02:36:37 by inowak--          #+#    #+#             */
+/*   Updated: 2025/03/20 03:22:42 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_strlentab(char **tab)
 {
 	int	i;
 
 	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	while (s1[i] == s2[i] && s1[i] && s2[i])
+	while (tab[i])
 		i++;
-	if (!s1[i] && !s2[i])
-		return (1);
-	return (0);
+	return (i);
 }

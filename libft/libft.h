@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:04:20 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/19 16:40:03 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/03/20 03:22:30 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+void		ft_freetab(char **tab);
+int			ft_strlentab(char **tab);
 
 int			ft_atoi(const char *nptr);
 void		ft_bzero(void *s, size_t n);

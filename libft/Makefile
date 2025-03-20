@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
+#    By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 08:28:04 by ncharbog          #+#    #+#              #
-#    Updated: 2025/03/19 17:21:11 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/03/20 02:37:42 by inowak--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,9 @@ SOURCES = 	ft_atoi.c\
 			ft_strtrim.c\
 			ft_substr.c\
 			ft_tolower.c\
-			ft_toupper.c
+			ft_toupper.c\
+			ft_freetab.c\
+			ft_strlentab.c\
 
 SOURCES_BONUS = ft_lstadd_back_bonus.c\
 				ft_lstadd_front_bonus.c\

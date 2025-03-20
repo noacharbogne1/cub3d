@@ -1,25 +1,81 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   identifier.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 13:22:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/03/19 17:53:36 by ncharbog         ###   ########.fr       */
+/*   Created: 2025/03/19 22:26:49 by inowak--          #+#    #+#             */
+/*   Updated: 2025/03/20 04:10:55 by inowak--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	is_space(char c)
+bool	is_all_digit(char *nb)
 {
-	if ((c >= 7 && c <= 13) || c == 32)
-		return (true);
-	return (false);
+	int	i;
+
+	i = 0;
+	while (nb[i])
+	{
+		if (!ft_isdigit(nb[i]))
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
-int	compare_identifier(char *id, int len)
+static bool	check_identifier_path(t_data *data)
+{
+	int	fd;
+
+	fd = open(data->n_txr, O_RDONLY);
+	if (fd < 0)
+		return (false);
+	close(fd);
+	fd = open(data->s_txr, O_RDONLY);
+	if (fd < 0)
+		return (false);
+	close(fd);
+	fd = open(data->e_txr, O_RDONLY);
+	if (fd < 0)
+		return (false);
+	close(fd);
+	fd = open(data->w_txr, O_RDONLY);
+	if (fd < 0)
+		return (false);
+	close (fd);
+	return (true);
+}
+
+bool	pars_identifier(t_data *data)
+{
+	char	**f_colors;
+	char	**c_colors;
+	int		i;
+
+	i = 0;
+	f_colors = ft_split(data->f_color, ',');
+	c_colors = ft_split(data->c_color, ',');
+	if (ft_strlentab(f_colors) != 3 || ft_strlentab(c_colors) != 3)
+		return (false);
+	while (f_colors[i] && c_colors[i])
+	{
+		if (!is_all_digit(f_colors[i]) || !is_all_digit(c_colors[i]))
+			return (false);
+		if (ft_atoi(f_colors[i]) < 0 || ft_atoi(f_colors[i]) > 255
+			|| ft_atoi(c_colors[i]) < 0 || ft_atoi(c_colors[i]) > 255)
+			return (false);
+		i++;
+	}
+	// condition pour le check des textures, a activer quand on aura des fichiers textures
+	if (!check_identifier_path(data))
+		;
+	return (true);
+}
+
+static int	compare_identifier(char *id, int len)
 {
 	if (len > 2)
 		return (0);
@@ -38,10 +94,10 @@ int	compare_identifier(char *id, int len)
 	return (0);
 }
 
-char	*take_path(char *buf)
+static char	*take_path(char *buf)
 {
-	char *path;
-	int len;
+	char	*path;
+	int		len;
 
 	len = 0;
 	while (buf[len] && !is_space(buf[len]))
@@ -52,16 +108,16 @@ char	*take_path(char *buf)
 	return (path);
 }
 
-void	assign_texture(int id, char *buf, t_data *data)
+static void	assign_texture(int id, char *buf, t_data *data)
 {
-	char *path;
+	char	*path;
 
 	path = take_path(buf);
 	if (!path)
 		return ;
 	if (id == NO)
 		data->n_txr = path;
-	else if (id == NO)
+	else if (id == SO)
 		data->s_txr = path;
 	else if (id == WE)
 		data->w_txr = path;
@@ -77,8 +133,8 @@ void	assign_texture(int id, char *buf, t_data *data)
 bool	check_identifier(char *buf, t_data *data)
 {
 	int	i;
-	int len;
-	int id;
+	int	len;
+	int	id;
 
 	i = 0;
 	len = 0;
@@ -95,58 +151,5 @@ bool	check_identifier(char *buf, t_data *data)
 	while (buf[i] && is_space(buf[i]))
 		i++;
 	assign_texture(id, buf + i, data);
-	return (true);
-}
-
-static bool	copy_file(char *file, t_data *data)
-{
-	int		i;
-	int		fd;
-	char	*buf;
-	int		is_map;
-
-	i = 0;
-	is_map = 0;
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Error\nFailed to open file %s\n", file);
-		return (false);
-	}
-	while (1)
-	{
-		buf = get_next_line(fd);
-		if (is_map < 6)
-		{
-			if (!check_identifier(buf, data))
-			{
-				free(buf);
-				return (false);
-			}
-			is_map++;
-		}
-		else
-			check_map(buf, data);
-		free(buf);
-	}
-	close(fd);
-	return (true);
-}
-
-static bool	check_extension(char *file)
-{
-	if (!file || ft_strlen(file) < 5)
-		return (false);
-	if (ft_strncmp(file + ft_strlen(file) - 4, ".cub", 4))
-		return (false);
-	return (true);
-}
-
-bool parsing(char *file, t_data *data)
-{
-	if (!check_extension(file))
-		return (false);
-	if (!copy_file(file, data))
-		return (false);
 	return (true);
 }

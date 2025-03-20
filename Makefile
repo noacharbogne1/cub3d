@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
+#    By: inowak-- <inowak--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 12:50:03 by inowak--          #+#    #+#              #
-#    Updated: 2025/03/19 17:22:39 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/03/20 02:02:08 by inowak--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,10 @@ CFLAGS = -Wall -Werror -Wextra -g
 NAME = cub3d
 
 SRC = src/main.c\
-		src/parsing.c\
+		src/parsing/parsing.c\
+		src/parsing/create_map.c\
+		src/parsing/identifier.c\
+		src/parsing/flood_fill.c\
 		GNL/get_next_line.c\
 		GNL/get_next_line_utils.c\
 
